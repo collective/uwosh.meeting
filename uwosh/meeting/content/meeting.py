@@ -9,6 +9,7 @@ from Products.ATContentTypes.content import document
 from Products.ATContentTypes.content import event
 from Products.ATContentTypes.content import schemata
 from Products.ATContentTypes.configuration import zconf
+from Products.CMFCore.utils import getToolByName
 
 # -*- Message Factory Imported Here -*-
 from uwosh.meeting import meetingMessageFactory as _
@@ -62,7 +63,9 @@ MeetingSchema = folder.ATFolderSchema.copy() + event.ATEventSchema.copy() + atap
 MeetingSchema['title'].storage = atapi.AnnotationStorage()
 MeetingSchema['description'].storage = atapi.AnnotationStorage()
 MeetingSchema['description'].widget.label = _(u'label_summary', default=u'Summary')
-
+MeetingSchema['contactName'].default_method = "getDefaultContactName"
+MeetingSchema['contactEmail'].default_method = "getDefaultContactEmail"
+MeetingSchema['contactPhone'].default_method = "getDefaultContactPhone"
 
 schemata.finalizeATCTSchema(
     MeetingSchema,
@@ -70,6 +73,9 @@ schemata.finalizeATCTSchema(
     moveDiscussion=False
 )
 
+# finalizeATCTSchema moves 'location' into 'categories', we move it back:
+MeetingSchema.changeSchemataForField('location', 'default')
+MeetingSchema.moveField('location', before='startDate')
 
 class Meeting(folder.ATFolder, document.ATDocument, event.ATEvent):
     """a content type that includes agenda and minutes rich text fields"""
@@ -85,6 +91,23 @@ class Meeting(folder.ATFolder, document.ATDocument, event.ATEvent):
     minutes = atapi.ATFieldProperty('minutes')
 
     agenda = atapi.ATFieldProperty('agenda')
+
+    def getDefaultContactName(self):
+        pm = getToolByName(self, 'portal_membership', None)
+        if pm:
+            m = pm.getAuthenticatedMember()
+            if m.id <> 'Anonymous User':
+                return pm.getMemberInfo(m.id)['fullname']
+
+    def getDefaultContactEmail(self):
+        pm = getToolByName(self, 'portal_membership', None)
+        if pm:
+            m = pm.getAuthenticatedMember()
+            if m.id <> 'Anonymous User':
+                return getattr(m, 'email', None)
+
+    def getDefaultContactPhone(self):
+        pass
 
 
 atapi.registerType(Meeting, PROJECTNAME)

@@ -8,6 +8,7 @@
   <five:registerPackage package="." initialize=".initialize" />
 
   <!-- Include the sub-packages that use their own configure.zcml files. -->
+  <include file="skins.zcml" />
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />
@@ -22,5 +23,13 @@
       />
   
   <!-- -*- extra stuff goes here -*- -->
+
+  <genericsetup:importStep
+      name="uwosh.meeting.various"
+      title="uwosh.meeting: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="uwosh.meeting.setuphandlers.setupVarious">
+    <depends name="skins"/>
+  </genericsetup:importStep>
 
 </configure>

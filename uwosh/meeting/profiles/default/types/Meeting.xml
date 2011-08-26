@@ -6,7 +6,7 @@
   <property name="description"
     i18n:translate="">a content type that includes agenda and minutes rich text fields</property>
   <property name="content_meta_type">Meeting</property>
-  <property name="content_icon">folder_icon.gif</property>
+  <property name="content_icon">event_icon.gif</property>
   <property name="product">uwosh.meeting</property>
   <property name="factory">addMeeting</property>
   <property name="immediate_view">atct_edit</property>
@@ -21,8 +21,9 @@
     <element value="Topic"/>
   </property>
   <property name="allow_discussion">True</property>
-  <property name="default_view">base_view</property>
+  <property name="default_view">meeting_view</property>
   <property name="view_methods">
+    <element value="meeting_view" />
     <element value="base_view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />

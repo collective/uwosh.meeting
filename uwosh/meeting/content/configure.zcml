@@ -13,4 +13,12 @@
         />
   </class>
 
+<subscriber for="..interfaces.IMeeting
+                 Products.Archetypes.interfaces.IObjectInitializedEvent"
+            handler=".meeting.meetingInitialized" />
+
+<subscriber for="..interfaces.IMeeting
+                 Products.Archetypes.interfaces.IObjectEditedEvent"
+            handler=".meeting.meetingEdited" />
+
 </configure>

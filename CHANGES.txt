@@ -1,8 +1,49 @@
 Changelog
 =========
 
-0.1 (2011-08-24)
-----------------
+0.3 [tkimnguyen] unreleased
+---------------------------
 
-- Created recipe with ZopeSkel
-  [tkimnguyen]
+- TODO: restore missing Related Items 
+
+- TODO: allow Related Items browser to let you choose a Folderish object,
+  not just its contained items
+
+- TODO: autocomplete for adding attendees
+
+- TODO: automatically link preceding and upcoming Meeting objects via
+  Related Items field
+
+- TODO: add a "Notify attendees now" button or action
+
+- TODO: for Solgema.fullcalendar, prevent "Add Meeting" from showing
+  up when clicking on the Events calendar / or allow listing and
+  adding Meeting objects in Events folder (probably easier)
+
+- TODO: enable next/previous navigation?
+
+
+0.2.1 (2011-08-27) [tkimnguyen] unreleased
+------------------------------------------
+
+- update content type description
+
+- in Solgema.fullcalendar view, added Edit and "Add attachment" links
+  if user has Modify portal content permission
+
+
+0.2 (2011-08-27) [tkimnguyen]
+-----------------------------
+
+- Can send invitation email to all attendees ('None', 'One-time only',
+  'On every edit')
+
+- Checkbox to allow attendees to edit the Meeting object
+
+- meeting_view and email notification includes listing of contained objects
+
+
+0.1 (2011-08-24) [tkimnguyen]
+-----------------------------
+
+- Basic functionality and attributes

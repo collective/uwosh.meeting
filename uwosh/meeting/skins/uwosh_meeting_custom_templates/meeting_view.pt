@@ -162,15 +162,19 @@
         Body text
         </metal:field>
 
+        <div tal:condition="context/getAgenda|nothing">
         <h3>Agenda</h3>
 	<metal:field use-macro="python:context.widget('agenda', mode='view')">
         Agenda text
         </metal:field>
+        </div>
 
+        <div tal:condition="context/getMinutes|nothing">
         <h3>Minutes</h3>
         <metal:field use-macro="python:context.widget('minutes', mode='view')">
         Minutes text
         </metal:field>
+        </div>
 
         <p tal:condition="context/event_url|nothing">
             <a class="url"
@@ -181,6 +185,22 @@
                         tal:attributes="href context/event_url">
                More information about this event&hellip;</a>
         </p>
+
+       <p class="discreet">
+	Can attendees edit?
+       <metal:field use-macro="python:context.widget('attendeesCanEdit', mode='view')">
+        Can attendees edit?
+        </metal:field>
+	</p>
+
+       <p class="discreet">
+	Email notification to attendees: 
+<metal:field use-macro="python:context.widget('notifyAttendeesByEmail', mode='view')">
+        Notify attendees by email?
+        </metal:field>
+	</p>
+
+	<div metal:use-macro="here/folder_listing/macros/listing" />
 
         <span class="visualClear"><!-- --></span>
 

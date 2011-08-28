@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.1'
+version = '0.2.1'
 
 long_description = (
     read('README.txt')
@@ -36,7 +36,7 @@ tests_require = ['zope.testing']
 
 setup(name='uwosh.meeting',
       version=version,
-      description="a Meeting content type that includes agenda and minutes richtext fields",
+      description="an Event-ish content type that includes agenda and minutes richtext fields",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers

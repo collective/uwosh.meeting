@@ -10,7 +10,8 @@
        persistence'.
        -->
 <object name="portal_skins" allow_any="False" cookie_persistence="False"
-   default_skin="uwosh.meeting">
+   default_skin="uwosh.meeting"
+   remove="True">
 
  <!-- This list registers the folders that are stored in the skins directory
       of your product (on the filesystem) as Filesystem Directory Views within
@@ -18,7 +19,8 @@
       -->
  <object name="uwosh_meeting_custom_templates"
     meta_type="Filesystem Directory View"
-    directory="uwosh.meeting:skins/uwosh_meeting_custom_templates"/>
+    directory="uwosh.meeting:skins/uwosh_meeting_custom_templates"
+    remove="True"/>
 
  <!-- A skin-path in this file corresponds to a Skin Selection in the
      'Properties' tab of the portal_skins tool, in the ZMI.
@@ -32,9 +34,10 @@
        Note: insert-before (and -after) accepts the value "*" which means
        "all".
        -->
- <skin-path name="*">
+ <skin-path name="uwosh.meeting" remove="True">
   <layer name="uwosh_meeting_custom_templates"
-     insert-after="custom"/>
+     insert-after="custom"
+     remove="True"/>
  </skin-path>
 
 </object>

@@ -22,6 +22,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   
+  <genericsetup:registerProfile
+        name="uninstall"
+        title="uwosh.meeting Uninstall Profile"
+        directory="profiles/uninstall"
+        description="Removes uwosh.meeting."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
+
   <!-- -*- extra stuff goes here -*- -->
 
   <genericsetup:importStep

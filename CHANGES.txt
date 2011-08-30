@@ -1,13 +1,8 @@
 Changelog
 =========
 
-0.3 [tkimnguyen] unreleased
----------------------------
-
-- TODO: restore missing Related Items 
-
-- TODO: allow Related Items browser to let you choose a Folderish object,
-  not just its contained items
+0.3 (2011-xx-yy) [tkimnguyen] unreleased
+-----------------------------
 
 - TODO: autocomplete for adding attendees
 
@@ -23,8 +18,18 @@ Changelog
 - TODO: enable next/previous navigation?
 
 
-0.2.1 (2011-08-27) [tkimnguyen] unreleased
-------------------------------------------
+0.2.2 (2011-08-29) [tkimnguyen]
+-------------------------------
+
+- add uwosh.meeting layer to all skins
+
+- add uninstall profile
+
+
+0.2.1 (2011-08-28) [tkimnguyen]
+-------------------------------
+
+- restore missing Related Items 
 
 - update content type description
 

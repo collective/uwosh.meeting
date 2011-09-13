@@ -10,7 +10,7 @@
        persistence'.
        -->
 <object name="portal_skins" allow_any="False" cookie_persistence="False"
-   default_skin="uwosh.meeting">
+   default_skin="Sunburst Theme">
 
  <!-- This list registers the folders that are stored in the skins directory
       of your product (on the filesystem) as Filesystem Directory Views within
@@ -32,7 +32,7 @@
        Note: insert-before (and -after) accepts the value "*" which means
        "all".
        -->
- <skin-path name="*">
+ <skin-path name="*" based-on="Sunburst Theme">
   <layer name="uwosh_meeting_custom_templates"
      insert-after="custom"/>
  </skin-path>

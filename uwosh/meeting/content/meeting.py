@@ -55,6 +55,34 @@ MeetingSchema = folder.ATFolderSchema.copy() + event.ATEventSchema.copy() + atap
         ),
     ),
 
+    atapi.TextField(
+        'actionItems',
+        required=False,
+        searchable=True,
+        storage=atapi.AnnotationStorage(),
+        validators = ('isTidyHtmlWithCleanup',),
+        default_output_type = 'text/x-html-safe',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html',
+                                 'application/msword'),
+        widget=atapi.RichWidget(
+            label=_(u"Action Items"),
+            description=_(u"things to do for the next meeting"),
+            rows = 20,
+            allow_file_upload = zconf.ATDocument.allow_document_upload,
+        ),
+    ),
+
+    atapi.DateTimeField(
+        'nextMeetingDateTime',
+        storage=atapi.AnnotationStorage(),
+        widget=atapi.CalendarWidget(
+            label=_(u"Next Meeting Date and Time"),
+            description=_(u"Field description"),
+        ),
+        validators=('isValidDate'),
+    ),
+
+
     atapi.BooleanField(
         'attendeesCanEdit',
         storage=atapi.AnnotationStorage(),
@@ -114,9 +142,13 @@ class Meeting(folder.ATFolder, document.ATDocument, event.ATEvent):
     description = atapi.ATFieldProperty('description')
 
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
+    nextMeetingDateTime = atapi.ATFieldProperty('nextMeetingDateTime')
+
     notifyAttendeesByEmail = atapi.ATFieldProperty('notifyAttendeesByEmail')
 
     attendeesCanEdit = atapi.ATFieldProperty('attendeesCanEdit')
+
+    actionItems = atapi.ATFieldProperty('actionItems')
 
     minutes = atapi.ATFieldProperty('minutes')
 
@@ -171,19 +203,33 @@ Attendees:   %s
 
 Agenda:      %s
 
+Minutes:     %s
+
 Meeting URL: %s
 
 %s
 
 %s
+
+Action Items: %s
+
+Next Meeting: %s
 """
                         obj_url = obj.absolute_url()
                         canAttachMessage = ("Click to add or upload attachments: %s/createObject?type_name=File" % obj_url) if obj.attendeesCanEdit else ""
                         mSubj = '%s has invited you to a meeting ("%s")' % (mName, obj.Title())
                         attachmentsListing = "\n\n".join([attachment.absolute_url() for attachment in obj.listFolderContents()])
                         if attachmentsListing:
-                            attachmentsListing = "Attachments:\n\n" + attachmentsListing 
-                        message = mMsg % (mName, obj.Title(), obj.Description(), obj.getText(), obj.start(), obj.end(), obj.getLocation(), obj.contact_name(), obj.contact_phone(), obj.contact_email(), obj.event_url(), ", ".join(obj.attendees), obj.getAgenda(), obj_url, attachmentsListing, canAttachMessage)
+                            attachmentsListing = "Attachments:\n\n" + attachmentsListing
+
+                        # handle potential unicode problems
+                        cleanMinutes = ''.join([x for x in obj.getMinutes(mimetype = 'text/plain') if ord(x) < 128])
+                        cleanActionItems = ''.join([x for x in obj.getActionItems(mimetype = 'text/plain') if ord(x) < 128])
+                        cleanAgenda = ''.join([x for x in obj.getAgenda(mimetype = 'text/plain') if ord(x) < 128])
+                        cleanText = ''.join([x for x in obj.getText(mimetype = 'text/plain') if ord(x) < 128])
+
+                        message = mMsg % (mName, obj.Title(), obj.Description(), cleanText, obj.start(), obj.end(), obj.getLocation(), obj.contact_name(), obj.contact_phone(), obj.contact_email(), obj.event_url(), ", ".join(obj.attendees), cleanAgenda, cleanMinutes, obj_url, attachmentsListing, canAttachMessage, cleanActionItems, obj.getNextMeetingDateTime())
+
                         mFrom = mEmail
                         for attendee in obj.attendees:
                             member = pm.getMemberById(attendee)

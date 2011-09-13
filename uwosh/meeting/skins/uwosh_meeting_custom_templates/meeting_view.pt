@@ -176,6 +176,20 @@
         </metal:field>
         </div>
 
+        <div tal:condition="context/getActionItems|nothing">
+        <h3>Action Items</h3>
+        <metal:field use-macro="python:context.widget('actionItems', mode='view')">
+        Action items 
+        </metal:field>
+        </div>
+
+        <div tal:condition="context/getNextMeetingDateTime|nothing">
+        <h3>Next Meeting</h3>
+        <metal:field use-macro="python:context.widget('nextMeetingDateTime', mode='view')">
+        Next Meeting
+        </metal:field>
+        </div>
+
         <p tal:condition="context/event_url|nothing">
             <a class="url"
                href="event_url"

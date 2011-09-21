@@ -36,7 +36,7 @@ tests_require = ['zope.testing']
 
 setup(name='uwosh.meeting',
       version=version,
-      description="an Event-ish content type that includes agenda and minutes richtext fields",
+      description="a folderish Event-ish content type that includes agenda, minutes, action items richtext fields; a datetime field for specifying when the next meetingwill be; can contain files (attachments); optionally allows listed attendees to edit the object and/or upload attachments; optionally sends out one-time or on-every-edit email notifications to listed attendees; includes a Solgema.fullcalendar view template",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers

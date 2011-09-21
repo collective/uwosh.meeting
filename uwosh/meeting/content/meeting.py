@@ -130,6 +130,7 @@ MeetingSchema.moveField('location', before='startDate')
 MeetingSchema.changeSchemataForField('relatedItems', 'default')
 MeetingSchema['relatedItems'].widget.visible['edit'] = 'visible'
 MeetingSchema['relatedItems'].widget.visible['view'] = 'visible'
+MeetingSchema.changeSchemataForField('allowDiscussion', 'default')
 
 class Meeting(folder.ATFolder, document.ATDocument, event.ATEvent):
     """a content type that includes agenda and minutes rich text fields"""

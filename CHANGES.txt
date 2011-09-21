@@ -19,6 +19,21 @@ Changelog
 
 - TODO: implement one-time email notification as an action
 
+- TODO: (re) expose the "add comment" text field and button in
+  meeting_view.pt
+
+- TODO: get the meeting to appear on the calendar
+
+
+0.3.2 (2011-09-20) [tkimnguyen]
+-------------------------------
+
+- update product description
+
+- add "add attachment" link to the meeting_view.pt
+
+- move the "allow discussion" setting to the default schemata
+
 
 0.3.1 (2011-09-13) [tkimnguyen]
 -------------------------------

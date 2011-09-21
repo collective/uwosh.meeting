@@ -214,6 +214,10 @@
         </metal:field>
 	</p>
 
+       <p class="discreet" tal:condition="python:checkPermission('Modify portal content', here)">
+	  <a tal:attributes="href python:context.absolute_url()+'/createObject?type_name=File'">Add attachment</a>
+	</p>
+
 	<div metal:use-macro="here/folder_listing/macros/listing" />
 
         <span class="visualClear"><!-- --></span>

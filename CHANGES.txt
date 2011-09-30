@@ -36,6 +36,9 @@ Changelog
 
 - move the "allow discussion" setting to the default schemata
 
+- added instructions on how to get published Meeting objects to
+  show up on the calendar portlet
+
 
 0.3.1 (2011-09-13) [tkimnguyen]
 -------------------------------

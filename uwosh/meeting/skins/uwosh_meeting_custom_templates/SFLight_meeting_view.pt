@@ -30,12 +30,11 @@
      use-macro="meeting_macro" />
 
    <ul class="discreet">
-      <li><a tal:attributes="href python:context.absolute_url()+'/view'">View</a></li>
+      <li><a tal:attributes="href python:context.absolute_url()+'/view'">View meeting</a></li>
    </ul>
 
    <ul class="discreet" tal:condition="python:checkPermission('Modify portal content', here)">
-     <li><a tal:attributes="href python:context.absolute_url()+'/edit'">Edit</a></li>
-     <li><a tal:attributes="href python:context.absolute_url()+'/createObject?type_name=File'">Add attachment</a></li>
+     <li><a tal:attributes="href python:context.absolute_url()+'/edit'">Edit meeting</a></li>
    </ul>
 
   </div>

@@ -22,7 +22,7 @@ Changelog
 - TODO: (re) expose the "add comment" text field and button in
   meeting_view.pt
 
-- TODO: get the meeting to appear on the calendar
+- TODO: get the meeting to appear on the Plone calendar portlet and events collection
 
 
 0.3.2 (2011-09-29) [tkimnguyen]

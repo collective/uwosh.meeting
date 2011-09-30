@@ -25,12 +25,14 @@ Changelog
 - TODO: get the meeting to appear on the calendar
 
 
-0.3.2 (2011-09-20) [tkimnguyen]
+0.3.2 (2011-09-29) [tkimnguyen]
 -------------------------------
 
 - update product description
 
 - add "add attachment" link to the meeting_view.pt
+
+- add "view" link to calendar view
 
 - move the "allow discussion" setting to the default schemata
 

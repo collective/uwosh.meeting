@@ -1,32 +1,29 @@
 Changelog
 =========
 
-0.4 (2011-xx-yy) [tkimnguyen] unreleased
------------------------------
+0.5 (2011-xx-yy) [tkimnguyen] unreleased
+----------------------------------------
 
 - TODO: autocomplete for adding attendees
 
 - TODO: automatically link preceding and upcoming Meeting objects via
   Related Items field
 
-- TODO: add a "Notify attendees now" button or action
-
 - TODO: for Solgema.fullcalendar, prevent "Add Meeting" from showing
   up when clicking on the Events calendar / or allow listing and
   adding Meeting objects in Events folder (probably easier)
-
-- TODO: enable next/previous navigation?
 
 - TODO: implement one-time email notification as an action
 
 - TODO: (re) expose the "add comment" text field and button in
   meeting_view.pt
 
-- TODO: get the meeting to appear on the Plone calendar portlet and events collection
+- TODO: use BackReferenceBrowserWidget instead of BackReferenceWidget
+  once it's not buggy!
 
 
-0.3.2 (2011-09-29) [tkimnguyen]
--------------------------------
+0.4 (2011-09-30) [tkimnguyen] 
+-----------------------------
 
 - update product description
 
@@ -38,6 +35,10 @@ Changelog
 
 - added instructions on how to get published Meeting objects to
   show up on the calendar portlet
+
+- added previousMeeting and nextMeeting attributes that use ATBackRef
+  to show bidirectional relations between Meeting objects; requires
+  separate installation of Products.ATBackRef
 
 
 0.3.1 (2011-09-13) [tkimnguyen]

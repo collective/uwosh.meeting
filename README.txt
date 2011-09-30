@@ -11,6 +11,13 @@ per that Configure tab's default settings, so if you want a Meeting
 (or an Event) to show up in the portlet, the Meeting or Event must
 be published too.
 
+This product also depends on Products.ATBackRef to support
+bidirectional relations between connected Meeting objects
+(next/previous).  Add the following to your buildout.cfg eggs:
+
+	Products.ATBackRef
+
+and rerun bin/buildout.
 
 - Code repository: https://svn.it.uwosh.edu/svn/plone/Projects/uwosh.meeting
 - Questions and comments to nguyen@uwosh.edu

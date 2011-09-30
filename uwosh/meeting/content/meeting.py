@@ -17,6 +17,10 @@ from uwosh.meeting import meetingMessageFactory as _
 from uwosh.meeting.interfaces import IMeeting
 from uwosh.meeting.config import PROJECTNAME
 
+from Products.ATBackRef.backref import BackReferenceWidget, BackReferenceBrowserWidget, BackReferenceField
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget \
+     import ReferenceBrowserWidget
+
 MeetingSchema = folder.ATFolderSchema.copy() + event.ATEventSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
@@ -105,6 +109,26 @@ MeetingSchema = folder.ATFolderSchema.copy() + event.ATEventSchema.copy() + atap
         vocabulary=['None', 'One-time only', 'On every edit',],
     ),
 
+    atapi.ReferenceField(
+        name='previousMeeting',
+        widget=atapi.ReferenceWidget(
+            label='Previous Meeting',
+        ),
+        allowed_types=('Meeting',),
+        multiValued=0,
+        relationship='previous_meeting'
+    ),
+
+    BackReferenceField(
+        name='nextMeeting',
+        widget=BackReferenceWidget(
+        #widget=BackReferenceBrowserWidget(
+            label='Next Meeting',
+        ),
+        allowed_types=('Meeting',),
+        multiValued=0,
+        relationship='previous_meeting'
+    ),
 
 ))
 

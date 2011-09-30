@@ -1,0 +1,208 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="atreferencebrowserwidget">
+
+  <head><title></title></head>
+
+  <body>
+
+    <metal:view_macro define-macro="view">
+      <tal:define define="refs               python:here.getBackReferenceImpl(field.relationship);
+                          image_portal_types field/widget/image_portal_types;
+                          image_method       field/widget/image_method|string:;
+                          show_path          field/widget/show_path|nothing;
+                          portal_path        python: '/'.join(context.portal_url.getPortalObject().getPhysicalPath());
+                          hide_inaccessible  field/widget/hide_inaccessible | nothing;"
+                  condition="refs">
+
+        <tal:block tal:condition="python: not field.multiValued and (can_view or not hide_inaccessible)"
+               tal:define="ref python:refs[0];
+                           obj ref/getTargetObject;
+                           obj_path python: '/'.join(obj.getPhysicalPath());
+                           can_view python: checkPermission('View', obj)">
+            <tal:if condition="image_portal_types">
+              <img src="#" alt="Image"
+                   tal:condition="python: obj.portal_type in image_portal_types"
+                   tal:attributes="src string:${obj/absolute_url}/$image_method"
+              />
+            </tal:if>
+
+            <a href="#"
+               tal:attributes="href obj/absolute_url;
+                               class python:obj.portal_type.replace(' ', '_')"
+               tal:content="python:obj.Title() or obj.absolute_url(relative=1)">
+              Sole target object's title
+            </a>
+
+            <a href="#" tal:define="portal context/@@plone_portal_state/portal"
+               tal:condition="python:portal.portal_interface.objectImplements(ref,'Products.Archetypes.interfaces.referenceengine.IContentReference')"
+               tal:attributes="href python:ref.getContentObject().absolute_url();
+                               class python:obj.portal_type.replace(' ', '_')"
+               tal:content="field/relationship">
+              reference object link
+            </a>
+
+            <tal:if condition="show_path"
+                 i18n:translate="label_directory">
+              ( Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
+            </tal:if>
+
+        </tal:block>
+
+        <ul tal:condition="field/multiValued">
+          <tal:sort tal:content="nothing"
+                    tal:on-error="nothing"
+                    tal:define="foo python:refs.sort(lambda x,y: cmp(x.order, y.order))">
+             If we are not using orderablereferencefield we don't have the order attribute
+             we swallow this error silently using tal:on-error
+          </tal:sort>
+          <tal:block tal:repeat="ref refs">
+            <tal:block tal:define="obj ref/getSourceObject;
+                                   obj_path python: '/'.join(obj.getPhysicalPath());
+                                   can_view python: checkPermission('View', obj)"
+                       tal:condition="python: can_view or not hide_inaccessible">
+              <li>
+                    <tal:if condition="image_portal_types">
+                      <img tal:condition="python: obj.portal_type in image_portal_types"
+                           tal:attributes="src string:${obj/absolute_url}/$image_method" />
+                    </tal:if>
+                    <a href="#"
+                       tal:attributes="href obj/absolute_url;
+                                       class python:obj.portal_type.replace(' ', '_')"
+                       tal:content="python:obj.Title() or obj.absolute_url(relative=1)">
+                      Target Title
+                    </a>
+    
+                    <a href="#"
+                       tal:condition="python:portal.portal_interface.objectImplements(ref,'Products.Archetypes.interfaces.referenceengine.IContentReference')"
+                       tal:attributes="href python:ref.getContentObject().absolute_url();
+                                       class python:obj.portal_type.replace(' ', '_')"
+                       tal:content="field/relationship">
+                      reference object link
+                    </a>
+    
+                    <tal:if condition="show_path"
+                         i18n:translate="label_directory">
+                      (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '') ">directory</span>)
+                    </tal:if>
+              </li>
+            </tal:block>
+          </tal:block>
+        </ul>
+
+      </tal:define>
+    </metal:view_macro>
+
+    <metal:reference_edit define-macro="reference_edit"
+             tal:define="multiVal           python:test(field.multiValued, 1, 0);
+                         show_path          field/widget/show_path|nothing;
+                         image_portal_types widget/image_portal_types;
+                         image_method       widget/image_method|string:;
+                         portal_path        python:'/'.join(context.portal_url.getPortalObject().getPhysicalPath());
+                         fieldName          fieldName;
+                         fieldRealName      field/getName;
+                         uids               python:same_type(value, []) and value or [value];
+                         ">
+
+          <input type="hidden"
+                 value=""
+                 tal:condition="python:not field.required and multiVal"
+                 tal:attributes="name string:$fieldName:default:list"
+                 />
+
+          <tal:single tal:condition="not: multiVal" >
+              <tal:value tal:condition="value">
+                  <tal:block tal:define="obj python:here.reference_catalog.lookupObject(value);
+                                         obj_path python: '/'.join(obj.getPhysicalPath())" >
+                      <input size=""
+                             type="text"
+                             value=""
+                             id=""
+                             tal:attributes="value obj/title_or_id;
+                                             size python:test(widget.size=='', 30, widget.size);
+                                             id string:${fieldName}_label" readonly="readonly" />
+
+                      <img tal:condition="python: obj.portal_type in image_portal_types"
+                           tal:attributes="src string:${obj/absolute_url}/$image_method" />
+
+                      <tal:if condition="show_path"
+                              i18n:translate="label_directory">
+                        (Directory: <span i18n:name="directory" tal:replace="python: obj_path.replace(portal_path + '/', '')">directory</span>)
+                      </tal:if>
+
+                  </tal:block>
+              </tal:value>
+              <input id=""
+                     size="50"
+                     type="text"
+                     value="No reference set. Click the add button to select."
+                     readonly="readonly"
+                     i18n:attributes="value label_no_reference_set;"
+                     tal:condition="not:  value"
+                     tal:attributes="id string:${fieldName}_label"/>
+              <input type="hidden"
+                     value=""
+                     name=""
+                     tal:attributes="name fieldName;
+                                     value value;
+                                     id string:${fieldName}" />
+
+          </tal:single>
+          <tal:multi tal:condition="multiVal"
+                     tal:define="targets python:[(here.reference_catalog.lookupObject(u),u) for u in uids if u]">
+            <div style="float: left">
+<!-- This should be enabled if we can remove it when an item is inserted.
+              <p class="discreet"
+                 tal:condition="not: targets">No items currently selected</p>
+-->
+              <ul class="visualNoMarker"
+                  tal:attributes="id string:${fieldName};">
+                <li tal:repeat="set targets">
+                  <label tal:define="title    python: set[0].title_or_id();
+                                     obj_path python: '/'.join(set[0].getPhysicalPath());">
+                    <input type="checkbox" 
+                           tal:attributes="name string:${fieldName}:list; 
+                                           value python:set[1];" 
+                           checked="checked">
+                    <tal:block replace="python: show_path and '%s (%s)' % (title, obj_path.replace(portal_path, '')) or title" />
+                  </label>
+                </li>
+              </ul>
+              </div>
+          </tal:multi>
+          <div style="clear: both"
+               tal:define="startup_directory python:here.referencebrowser_startupDirectory(widget.getStartupDirectory(here));
+                           global at_url at_url|python:'/'.join(here.getPhysicalPath())">
+              <input type="button"
+                     class="searchButton"
+                     value="Add..."
+                     onClick=""
+                     i18n:attributes="value label_add;"
+                     tal:attributes="onClick string:javascript:referencebrowser_openBrowser('${startup_directory}','${fieldName}', '${at_url}', '${fieldRealName}')" />
+              <input type="button"
+                     class="destructive"
+                     value="Remove reference"
+                     onClick=""
+                     i18n:attributes="value label_remove_reference;"
+                     tal:condition="not: multiVal"
+                     tal:attributes="onClick string:javascript:referencebrowser_removeReference('${fieldName}', ${multiVal})" />
+          </div>
+          <!-- Todo? -->
+          <metal:addable metal:use-macro="here/widgets/addable_support/macros/addable"/>
+    </metal:reference_edit>
+
+    <metal:edit_macro define-macro="edit">
+      <metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+        <metal:fill fill-slot="widget_body">
+          <metal:use use-macro="here/referencebrowser/macros/reference_edit" />
+        </metal:fill>
+      </metal:use>
+    </metal:edit_macro>
+
+    <metal:search_macro define-macro="search">
+      <div metal:use-macro="here/widgets/reference/macros/edit"></div>
+    </metal:search_macro>
+  </body>
+</html>

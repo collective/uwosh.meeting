@@ -214,6 +214,20 @@
         </metal:field>
 	</p>
 
+      <p class="discreet">
+	Previous Meeting:
+       <metal:field use-macro="python:context.widget('previousMeeting', mode='view')">
+        [Previous Meeting]
+        </metal:field>
+	</p>
+
+      <p class="discreet">
+	Next Meeting:
+       <metal:field use-macro="python:context.widget('nextMeeting', mode='view')">
+        [Next Meeting]
+        </metal:field>
+	</p>
+
 	<div metal:use-macro="here/folder_listing/macros/listing" />
 
         <ul class="discreet" tal:condition="python:checkPermission('Modify portal content', here)">

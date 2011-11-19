@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.4'
+version = '0.4.1'
 
 long_description = (
     read('README.txt')
@@ -36,7 +36,7 @@ tests_require = ['zope.testing']
 
 setup(name='uwosh.meeting',
       version=version,
-      description="a folderish Event-ish content type that includes agenda, minutes, action items richtext fields; a datetime field for specifying when the next meetingwill be; can contain files (attachments); optionally allows listed attendees to edit the object and/or upload attachments; optionally sends out one-time or on-every-edit email notifications to listed attendees; includes a Solgema.fullcalendar view template",
+      description="a folderish Event-ish content type that helps manage all information related to meetings",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
@@ -45,10 +45,10 @@ setup(name='uwosh.meeting',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      keywords='meeting, event, folder, attachment, minutes, agenda, action items',
+      author='T. Kim Nguyen',
+      author_email='nguyen@uwosh.edu',
+      url='https://svn.it.uwosh.edu/svn/plone/Projects/uwosh.meeting/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['uwosh', ],

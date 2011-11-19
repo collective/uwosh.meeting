@@ -16,10 +16,21 @@ Changelog
 - TODO: implement one-time email notification as an action
 
 - TODO: (re) expose the "add comment" text field and button in
-  meeting_view.pt
+  meeting_view.pt that are normally there for non-Folderish content types
 
 - TODO: use BackReferenceBrowserWidget instead of BackReferenceWidget
   once it's not buggy!
+
+
+0.4.1 (2011-11-18) [tkimnguyen]
+-------------------------------
+
+- fix bug when removing an attendee that had Editor role
+
+- improved handling of members without email addresses or full names
+
+- notification email message includes next and previous meeting URLs 
+  and lists attendees' full name as well as ID
 
 
 0.4 (2011-09-30) [tkimnguyen] 

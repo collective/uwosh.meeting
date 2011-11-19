@@ -208,7 +208,7 @@ def meetingSendEmailNotification(obj, event):
                         mName = '<unknown name>'
                     if mEmail:
                         mMsg = """
-%s has invited you to the following meeting:
+%s has shared the following meeting with you:
 
 Title:       %s
 
@@ -247,9 +247,7 @@ Prev Meeting URL: %s
 Next Meeting URL: %s
 """
                         obj_url = obj.absolute_url()
-                        canAttachMessage = 
-                            ("Click to add or upload attachments: %s/createObject?type_name=File" % obj_url) 
-                            if obj.attendeesCanEdit else ""
+                        canAttachMessage = ("Click to add or upload attachments: %s/createObject?type_name=File" % obj_url) if obj.attendeesCanEdit else ""
                         mSubj = '%s has invited you to a meeting ("%s")' % (mName, obj.Title())
                         attachmentsListing = "\n\n".join([attachment.absolute_url() for attachment in obj.listFolderContents()])
                         if attachmentsListing:
@@ -276,8 +274,9 @@ Next Meeting URL: %s
                             obj.getLocation(), obj.contact_name(),
                             obj.contact_phone(), obj.contact_email(),
                             obj.event_url(), 
-                            ", ".join(["%s (%s)" % 
-                                (pm.getMemberById(a).getProperty('fullname'), a) for a in obj.attendees]),
+                            ", ".join(["%s (%s / %s)" % 
+                                (pm.getMemberById(a).getProperty('fullname'), a, 
+                                 pm.getMemberById(a).getProperty('email')) for a in obj.attendees]),
                             cleanAgenda, cleanMinutes, obj_url,
                             attachmentsListing, canAttachMessage,
                             cleanActionItems, obj.getNextMeetingDateTime(),

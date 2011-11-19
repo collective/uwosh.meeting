@@ -22,6 +22,14 @@ Changelog
   once it's not buggy!
 
 
+0.4.2 (2011-11-18) [tkimnguyen]
+-------------------------------
+
+- notification email message includes attendees email address; 
+  wording change from "has invited you to" to "has shared the following 
+  meeting" 
+
+
 0.4.1 (2011-11-18) [tkimnguyen]
 -------------------------------
 

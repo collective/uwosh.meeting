@@ -12,6 +12,9 @@
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />
+
+  <!-- Include configuration for dependencies listed in setup.py -->
+  <includeDependencies package="." />
   
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile

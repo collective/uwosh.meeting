@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '0.4.2'
+version = '0.4.3'
 
 long_description = (
     read('README.txt')
@@ -56,6 +56,7 @@ setup(name='uwosh.meeting',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
+                        'Products.ATBackRef',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

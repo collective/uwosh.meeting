@@ -22,6 +22,12 @@ Changelog
   once it's not buggy!
 
 
+0.4.3 (2011-11-23) [tkimnguyen]
+-------------------------------
+
+- automatically installs Products.ATBackRef 
+
+
 0.4.2 (2011-11-18) [tkimnguyen]
 -------------------------------
 

@@ -294,6 +294,7 @@ Next Meeting URL: %s
             obj.notifyAttendeesByEmail = 'None'
                                 
 def meetingSetEditorRole(obj, event):
+    #import pdb;pdb.set_trace()
     if not obj.attendeesCanEdit:
         # remove all attendees' Editor role
         # get_local_roles() return sequence like ( ("userid1", ("rolename1", "rolename2")), ("userid2", ("rolename1") )
@@ -302,7 +303,7 @@ def meetingSetEditorRole(obj, event):
                 if 'Editor' in useridRoles and attendee == userid:
                     newUseridRoles = [r for r in useridRoles if r <> 'Editor']
                     if not newUseridRoles:
-                        obj.manage_delLocalRoles(attendee)
+                        obj.manage_delLocalRoles([attendee])
                     else:
                         obj.manage_setLocalRoles(attendee, newUseridRoles)
     else:
@@ -312,7 +313,7 @@ def meetingSetEditorRole(obj, event):
             if 'Editor' in useridRoles and userid not in attendees:
                 newUseridRoles = [r for r in useridRoles if r <> 'Editor']
                 if not newUseridRoles:
-                    obj.manage_delLocalRoles(userid)
+                    obj.manage_delLocalRoles([userid])
                 else:
                     obj.manage_setLocalRoles(userid, newUseridRoles)
         # add Editor role for attendees if they don't already have it

@@ -22,6 +22,16 @@ Changelog
   once it's not buggy!
 
 
+0.5 (2011-11-24) [tkimnguyen]
+-----------------------------
+
+- added tests
+
+- fixed problem with removal of attendee that had only Editor role
+
+- Owner role now gets "uwosh.meeting: Add Meeting" permission by default
+
+
 0.4.3 (2011-11-23) [tkimnguyen]
 -------------------------------
 

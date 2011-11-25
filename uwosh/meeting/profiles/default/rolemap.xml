@@ -3,6 +3,7 @@
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
     <permission name="uwosh.meeting: Add Meeting" acquire="False">
+      <role name="Owner" />
       <role name="Manager" />
       <role name="Contributor" />
     </permission>

@@ -36,7 +36,7 @@ tests_require = ['zope.testing']
 
 setup(name='uwosh.meeting',
       version=version,
-      description="a folderish Event-ish content type that helps manage all information related to meetings",
+      description="a folderish Event that centralizes meeting information",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
@@ -45,7 +45,7 @@ setup(name='uwosh.meeting',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='meeting, event, folder, attachment, minutes, agenda, action items',
+      keywords='meeting,event,folder,attachment,minutes,agenda,action items',
       author='T. Kim Nguyen',
       author_email='nguyen@uwosh.edu',
       url='https://svn.it.uwosh.edu/svn/plone/Projects/uwosh.meeting/',

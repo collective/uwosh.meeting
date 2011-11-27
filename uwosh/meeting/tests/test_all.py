@@ -24,7 +24,6 @@ class TestUWOshMeeting(PloneTestCase.PloneTestCase):
     def testAttributes(self):
         from DateTime import DateTime
         pm = self.portal.portal_membership
-        memberId = pm.getAuthenticatedMember().id
         self.folder.invokeFactory('Meeting', 'Meeting3')
         m = self.folder.Meeting3
         pm.addMember('user2', 'secret', [], [])
@@ -32,24 +31,26 @@ class TestUWOshMeeting(PloneTestCase.PloneTestCase):
 
         m.setTitle('My Meeting Number Three')
         m.setDescription('a description')
-        m.edit(text_format='plain', 
+        m.edit(text_format='plain',
             text='event body goes here',
-            actionItems='actions go here', 
+            actionItems='actions go here',
             agenda='agenda goes here',
-            contactEmail='test@testing.com', 
+            contactEmail='test@testing.com',
             contactName='Buford T. Justice',
-            attendeesCanEdit=True, 
+            attendeesCanEdit=True,
             attendees=['user2', 'user3', ],
             eventUrl='http://slashdot.org',
             location='The Big Conference Room',
             minutes='These are the minutes of the meeting',
             nextMeetingDateTime=DateTime('2020-01-01 10:00'),
-            notifyAttendeesByEmail='One-time only', # vocabulary=['None', 'One-time only', 'On every edit',],
+            # vocabulary=['None', 'One-time only', 'On every edit',],
+            notifyAttendeesByEmail='One-time only',
             startDate=DateTime('2012-02-02 11:00'),
             endDate=DateTime('2012-02-02 12:00'),
             )
 
-        self.assertEqual(m.getNotifyAttendeesByEmail(), 'One-time only') # should be 'One-time only' before processForm() call
+        # should be 'One-time only' before processForm() call
+        self.assertEqual(m.getNotifyAttendeesByEmail(), 'One-time only')
         self.assertEqual(m.Title(), 'My Meeting Number Three')
         self.assertEqual(m.Description(), 'a description')
         self.assertEqual(m.getText(), '<p>event body goes here</p>')
@@ -71,16 +72,19 @@ class TestUWOshMeeting(PloneTestCase.PloneTestCase):
         self.assertEqual(m.getAttendees(), ('user2', 'user3',))
         self.assertEqual(m.event_url(), 'http://slashdot.org')
         self.assertEqual(m.getLocation(), 'The Big Conference Room')
-        self.assertEqual(m.getMinutes(), '<p>These are the minutes of the meeting</p>')
-        self.assertEqual(m.getNextMeetingDateTime(), DateTime('2020-01-01 10:00'))
-        self.assertEqual(m.getNotifyAttendeesByEmail(), 'None') # should be None after processForm() call
+        self.assertEqual(m.getMinutes(),
+            '<p>These are the minutes of the meeting</p>')
+        self.assertEqual(m.getNextMeetingDateTime(),
+            DateTime('2020-01-01 10:00'))
+        # should be None after processForm() call
+        self.assertEqual(m.getNotifyAttendeesByEmail(), 'None')
         self.assertEqual(m.startDate, DateTime('2012-02-02 11:00'))
         self.assertEqual(m.endDate, DateTime('2012-02-02 12:00'))
 
         # test removal of an attendee
         m.edit(attendees=['user2', ],)
         m.processForm()
-        #import pdb;pdb.set_trace()
+        #import pdb; pdb.set_trace()
         localRoles2b = m.get_local_roles_for_userid('user2')
         localRoles3b = m.get_local_roles_for_userid('user3')
         self.assertEqual('Editor' in localRoles2b, True)

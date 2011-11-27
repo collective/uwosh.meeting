@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.5 (2011-xx-yy) [tkimnguyen] unreleased
-----------------------------------------
+[tkimnguyen] unreleased
+-----------------------
 
 - TODO: autocomplete for adding attendees
 
@@ -21,6 +21,9 @@ Changelog
 - TODO: use BackReferenceBrowserWidget instead of BackReferenceWidget
   once it's not buggy!
 
+- TODO: add a "clone" action that makes the next meeting object and sets its
+  previous meeting to be the current one
+  
 
 0.5 (2011-11-24) [tkimnguyen]
 -----------------------------

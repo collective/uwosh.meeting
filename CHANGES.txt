@@ -25,6 +25,12 @@ Changelog
   previous meeting to be the current one
   
 
+0.5.1 (2011-11-27) [tkimnguyen]
+-------------------------------
+
+- updated project URL and pypi classifiers
+
+
 0.5 (2011-11-24) [tkimnguyen]
 -----------------------------
 

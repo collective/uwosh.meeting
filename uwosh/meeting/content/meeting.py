@@ -141,6 +141,7 @@ MeetingSchema['description'].widget.label = _(u'label_summary', default=u'Summar
 MeetingSchema['contactName'].default_method = "getDefaultContactName"
 MeetingSchema['contactEmail'].default_method = "getDefaultContactEmail"
 MeetingSchema['contactPhone'].default_method = "getDefaultContactPhone"
+MeetingSchema['attendees'].widget.description = _(u'Enter one valid userID per line.  Invalid userIDs will not be able to receive emails.')
 
 schemata.finalizeATCTSchema(
     MeetingSchema,
